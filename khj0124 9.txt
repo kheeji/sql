@@ -1,0 +1,1677 @@
+HR@orcl> connect hr/hr
+Connected.
+HR@orcl> describe departments
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPARTMENT_ID                             NOT NULL NUMBER(4)
+ DEPARTMENT_NAME                           NOT NULL VARCHAR2(30)
+ MANAGER_ID                                         NUMBER(6)
+ LOCATION_ID                                        NUMBER(4)
+
+HR@orcl> select *
+  2  from departments;
+
+DEPARTMENT_ID DEPARTMENT_NAME                MANAGER_ID LOCATION_ID             
+------------- ------------------------------ ---------- -----------             
+           10 Administration                        200        1700             
+           20 Marketing                             201        1800             
+           50 Shipping                              124        1500             
+           60 IT                                    103        1400             
+           80 Sales                                 149        2500             
+           90 Executive                             100        1700             
+          110 Accounting                            205        1700             
+          190 Contracting                                      1700             
+
+8 rows selected.
+
+HR@orcl> describe employees
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEE_ID                               NOT NULL NUMBER(6)
+ FIRST_NAME                                         VARCHAR2(20)
+ LAST_NAME                                 NOT NULL VARCHAR2(25)
+ EMAIL                                     NOT NULL VARCHAR2(25)
+ PHONE_NUMBER                                       VARCHAR2(20)
+ HIRE_DATE                                 NOT NULL DATE
+ JOB_ID                                    NOT NULL VARCHAR2(10)
+ SALARY                                             NUMBER(8,2)
+ COMMISSION_PCT                                     NUMBER(2,2)
+ MANAGER_ID                                         NUMBER(6)
+ DEPARTMENT_ID                                      NUMBER(4)
+
+HR@orcl> select employee_id, last_name , job_id,hire_date StartDate
+  2  from employees;
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID     STARTDATE                      
+----------- ------------------------- ---------- ---------                      
+        100 King                      AD_PRES    17-JUN-87                      
+        101 Kochhar                   AD_VP      21-SEP-89                      
+        102 De Haan                   AD_VP      13-JAN-93                      
+        103 Hunold                    IT_PROG    03-JAN-90                      
+        104 Ernst                     IT_PROG    21-MAY-91                      
+        107 Lorentz                   IT_PROG    07-FEB-99                      
+        124 Mourgos                   ST_MAN     16-NOV-99                      
+        141 Rajs                      ST_CLERK   17-OCT-95                      
+        142 Davies                    ST_CLERK   29-JAN-97                      
+        143 Matos                     ST_CLERK   15-MAR-98                      
+        144 Vargas                    ST_CLERK   09-JUL-98                      
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID     STARTDATE                      
+----------- ------------------------- ---------- ---------                      
+        149 Zlotkey                   SA_MAN     29-JAN-00                      
+        174 Abel                      SA_REP     11-MAY-96                      
+        176 Taylor                    SA_REP     24-MAR-98                      
+        178 Grant                     SA_REP     24-MAY-99                      
+        200 Whalen                    AD_ASST    17-SEP-87                      
+        201 Hartstein                 MK_MAN     17-FEB-96                      
+        202 Fay                       MK_REP     17-AUG-97                      
+        205 Higgins                   AC_MGR     07-JUN-94                      
+        206 Gietz                     AC_ACCOUNT 07-JUN-94                      
+
+20 rows selected.
+
+HR@orcl> save lab01_03.sql
+Created file lab01_03.sql
+HR@orcl> select distinct job_id
+  2  from employees;
+
+JOB_ID                                                                          
+----------                                                                      
+AC_ACCOUNT                                                                      
+AC_MGR                                                                          
+AD_ASST                                                                         
+AD_PRES                                                                         
+AD_VP                                                                           
+IT_PROG                                                                         
+MK_MAN                                                                          
+MK_REP                                                                          
+SA_MAN                                                                          
+SA_REP                                                                          
+ST_CLERK                                                                        
+
+JOB_ID                                                                          
+----------                                                                      
+ST_MAN                                                                          
+
+12 rows selected.
+
+HR@orcl> select employee_id "Emp #", last_name "Employee",
+  2  job_id "Job",hire_date "Hire Date"
+  3  From employees
+  4  /
+
+     Emp # Employee                  Job        Hire Date                       
+---------- ------------------------- ---------- ---------                       
+       100 King                      AD_PRES    17-JUN-87                       
+       101 Kochhar                   AD_VP      21-SEP-89                       
+       102 De Haan                   AD_VP      13-JAN-93                       
+       103 Hunold                    IT_PROG    03-JAN-90                       
+       104 Ernst                     IT_PROG    21-MAY-91                       
+       107 Lorentz                   IT_PROG    07-FEB-99                       
+       124 Mourgos                   ST_MAN     16-NOV-99                       
+       141 Rajs                      ST_CLERK   17-OCT-95                       
+       142 Davies                    ST_CLERK   29-JAN-97                       
+       143 Matos                     ST_CLERK   15-MAR-98                       
+       144 Vargas                    ST_CLERK   09-JUL-98                       
+
+     Emp # Employee                  Job        Hire Date                       
+---------- ------------------------- ---------- ---------                       
+       149 Zlotkey                   SA_MAN     29-JAN-00                       
+       174 Abel                      SA_REP     11-MAY-96                       
+       176 Taylor                    SA_REP     24-MAR-98                       
+       178 Grant                     SA_REP     24-MAY-99                       
+       200 Whalen                    AD_ASST    17-SEP-87                       
+       201 Hartstein                 MK_MAN     17-FEB-96                       
+       202 Fay                       MK_REP     17-AUG-97                       
+       205 Higgins                   AC_MGR     07-JUN-94                       
+       206 Gietz                     AC_ACCOUNT 07-JUN-94                       
+
+20 rows selected.
+
+HR@orcl> SELECT last_name||', '||job_id "Employee and Title"
+  2  FROM employees;
+
+Employee and Title                                                              
+-------------------------------------                                           
+Abel, SA_REP                                                                    
+Davies, ST_CLERK                                                                
+De Haan, AD_VP                                                                  
+Ernst, IT_PROG                                                                  
+Fay, MK_REP                                                                     
+Gietz, AC_ACCOUNT                                                               
+Grant, SA_REP                                                                   
+Hartstein, MK_MAN                                                               
+Higgins, AC_MGR                                                                 
+Hunold, IT_PROG                                                                 
+King, AD_PRES                                                                   
+
+Employee and Title                                                              
+-------------------------------------                                           
+Kochhar, AD_VP                                                                  
+Lorentz, IT_PROG                                                                
+Matos, ST_CLERK                                                                 
+Mourgos, ST_MAN                                                                 
+Rajs, ST_CLERK                                                                  
+Taylor, SA_REP                                                                  
+Vargas, ST_CLERK                                                                
+Whalen, AD_ASST                                                                 
+Zlotkey, SA_MAN                                                                 
+
+20 rows selected.
+
+HR@orcl> SELECT last_name, salary
+  2  FROM employees
+  3  WHERE salary > 12000;
+
+LAST_NAME                     SALARY                                            
+------------------------- ----------                                            
+King                           24000                                            
+Kochhar                        17000                                            
+De Haan                        17000                                            
+Hartstein                      13000                                            
+
+HR@orcl> SELECT last_name, department_id
+  2  From employees
+  3  where employee_id = 176;
+
+LAST_NAME                 DEPARTMENT_ID                                         
+------------------------- -------------                                         
+Taylor                               80                                         
+
+HR@orcl> select last_name, salary
+  2  from employees
+  3  where salary not between 5000 and 12000;
+
+LAST_NAME                     SALARY                                            
+------------------------- ----------                                            
+King                           24000                                            
+Kochhar                        17000                                            
+De Haan                        17000                                            
+Lorentz                         4200                                            
+Rajs                            3500                                            
+Davies                          3100                                            
+Matos                           2600                                            
+Vargas                          2500                                            
+Whalen                          4400                                            
+Hartstein                      13000                                            
+
+10 rows selected.
+
+HR@orcl> select last_name , job_id, hire_date
+  2  from employees
+  3  where last_name in ("Matos','Taylor')
+  4  order by hire_date;
+ERROR:
+ORA-01740: missing double quote in identifier 
+
+
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select last_name , job_id, hire_date
+  2  from employees
+  3  where last_name in ('Matos','Taylor')
+  4* order by hire_date
+HR@orcl> /
+
+LAST_NAME                 JOB_ID     HIRE_DATE                                  
+------------------------- ---------- ---------                                  
+Matos                     ST_CLERK   15-MAR-98                                  
+Taylor                    SA_REP     24-MAR-98                                  
+
+HR@orcl> select last_name,department_id
+  2  from employees
+  3  where department_id in (20,50)
+  4  order by last_name;
+
+LAST_NAME                 DEPARTMENT_ID                                         
+------------------------- -------------                                         
+Davies                               50                                         
+Fay                                  20                                         
+Hartstein                            20                                         
+Matos                                50                                         
+Mourgos                              50                                         
+Rajs                                 50                                         
+Vargas                               50                                         
+
+7 rows selected.
+
+HR@orcl> select last_name"Employee", salary"Monthly Salary"
+  2  from employees
+  3  where salary between 5000 and 12000
+  4  and department_id in (20,50);
+
+Employee                  Monthly Salary                                        
+------------------------- --------------                                        
+Fay                                 6000                                        
+Mourgos                             5800                                        
+
+HR@orcl> select last_name,hire_date
+  2  from employees
+  3  where hire_date like '%94';
+
+LAST_NAME                 HIRE_DATE                                             
+------------------------- ---------                                             
+Higgins                   07-JUN-94                                             
+Gietz                     07-JUN-94                                             
+
+HR@orcl> select last_name || 'earns ' || to_char(salary, 'fms99,999.00') || 'monthly but wants'
+  2  || to_char(salary * 3,'fm$99,999.00') || '-' "Dream Salaries"
+  3  From employees;
+
+Dream Salaries                                                                  
+----------------------------------------------------------------------          
+Kingearns +24,000.00monthly but wants$72,000.00-                                
+Kochharearns +17,000.00monthly but wants$51,000.00-                             
+De Haanearns +17,000.00monthly but wants$51,000.00-                             
+Hunoldearns +9,000.00monthly but wants$27,000.00-                               
+Ernstearns +6,000.00monthly but wants$18,000.00-                                
+Lorentzearns +4,200.00monthly but wants$12,600.00-                              
+Mourgosearns +5,800.00monthly but wants$17,400.00-                              
+Rajsearns +3,500.00monthly but wants$10,500.00-                                 
+Daviesearns +3,100.00monthly but wants$9,300.00-                                
+Matosearns +2,600.00monthly but wants$7,800.00-                                 
+Vargasearns +2,500.00monthly but wants$7,500.00-                                
+
+Dream Salaries                                                                  
+----------------------------------------------------------------------          
+Zlotkeyearns +10,500.00monthly but wants$31,500.00-                             
+Abelearns +11,000.00monthly but wants$33,000.00-                                
+Taylorearns +8,600.00monthly but wants$25,800.00-                               
+Grantearns +7,000.00monthly but wants$21,000.00-                                
+Whalenearns +4,400.00monthly but wants$13,200.00-                               
+Hartsteinearns +13,000.00monthly but wants$39,000.00-                           
+Fayearns +6,000.00monthly but wants$18,000.00-                                  
+Higginsearns +12,000.00monthly but wants$36,000.00-                             
+Gietzearns +8,300.00monthly but wants$24,900.00-                                
+
+20 rows selected.
+
+HR@orcl> select last_name, LPAD(salary, 15, '$') SALARY
+  2  FROM employees;
+
+LAST_NAME                                                                       
+-------------------------                                                       
+SALARY                                                                          
+------------------------------------------------------------                    
+King                                                                            
+$$$$$$$$$$24000                                                                 
+                                                                                
+Kochhar                                                                         
+$$$$$$$$$$17000                                                                 
+                                                                                
+De Haan                                                                         
+$$$$$$$$$$17000                                                                 
+                                                                                
+
+LAST_NAME                                                                       
+-------------------------                                                       
+SALARY                                                                          
+------------------------------------------------------------                    
+Hunold                                                                          
+$$$$$$$$$$$9000                                                                 
+                                                                                
+Ernst                                                                           
+$$$$$$$$$$$6000                                                                 
+                                                                                
+Lorentz                                                                         
+$$$$$$$$$$$4200                                                                 
+                                                                                
+
+LAST_NAME                                                                       
+-------------------------                                                       
+SALARY                                                                          
+------------------------------------------------------------                    
+Mourgos                                                                         
+$$$$$$$$$$$5800                                                                 
+                                                                                
+Rajs                                                                            
+$$$$$$$$$$$3500                                                                 
+                                                                                
+Davies                                                                          
+$$$$$$$$$$$3100                                                                 
+                                                                                
+
+LAST_NAME                                                                       
+-------------------------                                                       
+SALARY                                                                          
+------------------------------------------------------------                    
+Matos                                                                           
+$$$$$$$$$$$2600                                                                 
+                                                                                
+Vargas                                                                          
+$$$$$$$$$$$2500                                                                 
+                                                                                
+Zlotkey                                                                         
+$$$$$$$$$$10500                                                                 
+                                                                                
+
+LAST_NAME                                                                       
+-------------------------                                                       
+SALARY                                                                          
+------------------------------------------------------------                    
+Abel                                                                            
+$$$$$$$$$$11000                                                                 
+                                                                                
+Taylor                                                                          
+$$$$$$$$$$$8600                                                                 
+                                                                                
+Grant                                                                           
+$$$$$$$$$$$7000                                                                 
+                                                                                
+
+LAST_NAME                                                                       
+-------------------------                                                       
+SALARY                                                                          
+------------------------------------------------------------                    
+Whalen                                                                          
+$$$$$$$$$$$4400                                                                 
+                                                                                
+Hartstein                                                                       
+$$$$$$$$$$13000                                                                 
+                                                                                
+Fay                                                                             
+$$$$$$$$$$$6000                                                                 
+                                                                                
+
+LAST_NAME                                                                       
+-------------------------                                                       
+SALARY                                                                          
+------------------------------------------------------------                    
+Higgins                                                                         
+$$$$$$$$$$12000                                                                 
+                                                                                
+Gietz                                                                           
+$$$$$$$$$$$8300                                                                 
+                                                                                
+
+20 rows selected.
+
+HR@orcl> select last_name, hire_date, yo_char(next_day(add_manths(hire_date, 6),'MONDAY'),
+  2  'fmDay, "the" Ddspth "of" Month, YYYY') REVIEW
+  3  FROM employees;
+select last_name, hire_date, yo_char(next_day(add_manths(hire_date, 6),'MONDAY'),
+                             *
+ERROR at line 1:
+ORA-00904: "YO_CHAR": invalid identifier 
+
+
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select last_name, hire_date, to_char(next_day(add_manths(hire_date, 6),'MONDAY'),
+  2  'fmDay, "the" Ddspth "of" Month, YYYY') REVIEW
+  3* FROM employees
+HR@orcl> /
+select last_name, hire_date, to_char(next_day(add_manths(hire_date, 6),'MONDAY'),
+                                              *
+ERROR at line 1:
+ORA-00904: "ADD_MANTHS": invalid identifier 
+
+
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select last_name, hire_date, to_char(next_day(add_months(hire_date, 6),'MONDAY'),
+  2  'fmDay, "the" Ddspth "of" Month, YYYY') REVIEW
+  3* FROM employees
+HR@orcl> /
+
+LAST_NAME                 HIRE_DATE                                             
+------------------------- ---------                                             
+REVIEW                                                                          
+--------------------------------------------------------------------------------
+King                      17-JUN-87                                             
+Monday, the Twenty-First of December, 1987                                      
+                                                                                
+Kochhar                   21-SEP-89                                             
+Monday, the Twenty-Sixth of March, 1990                                         
+                                                                                
+De Haan                   13-JAN-93                                             
+Monday, the Nineteenth of July, 1993                                            
+                                                                                
+
+LAST_NAME                 HIRE_DATE                                             
+------------------------- ---------                                             
+REVIEW                                                                          
+--------------------------------------------------------------------------------
+Hunold                    03-JAN-90                                             
+Monday, the Ninth of July, 1990                                                 
+                                                                                
+Ernst                     21-MAY-91                                             
+Monday, the Twenty-Fifth of November, 1991                                      
+                                                                                
+Lorentz                   07-FEB-99                                             
+Monday, the Ninth of August, 1999                                               
+                                                                                
+
+LAST_NAME                 HIRE_DATE                                             
+------------------------- ---------                                             
+REVIEW                                                                          
+--------------------------------------------------------------------------------
+Mourgos                   16-NOV-99                                             
+Monday, the Twenty-Second of May, 2000                                          
+                                                                                
+Rajs                      17-OCT-95                                             
+Monday, the Twenty-Second of April, 1996                                        
+                                                                                
+Davies                    29-JAN-97                                             
+Monday, the Fourth of August, 1997                                              
+                                                                                
+
+LAST_NAME                 HIRE_DATE                                             
+------------------------- ---------                                             
+REVIEW                                                                          
+--------------------------------------------------------------------------------
+Matos                     15-MAR-98                                             
+Monday, the Twenty-First of September, 1998                                     
+                                                                                
+Vargas                    09-JUL-98                                             
+Monday, the Eleventh of January, 1999                                           
+                                                                                
+Zlotkey                   29-JAN-00                                             
+Monday, the Thirty-First of July, 2000                                          
+                                                                                
+
+LAST_NAME                 HIRE_DATE                                             
+------------------------- ---------                                             
+REVIEW                                                                          
+--------------------------------------------------------------------------------
+Abel                      11-MAY-96                                             
+Monday, the Eighteenth of November, 1996                                        
+                                                                                
+Taylor                    24-MAR-98                                             
+Monday, the Twenty-Eighth of September, 1998                                    
+                                                                                
+Grant                     24-MAY-99                                             
+Monday, the Twenty-Ninth of November, 1999                                      
+                                                                                
+
+LAST_NAME                 HIRE_DATE                                             
+------------------------- ---------                                             
+REVIEW                                                                          
+--------------------------------------------------------------------------------
+Whalen                    17-SEP-87                                             
+Monday, the Twenty-First of March, 1988                                         
+                                                                                
+Hartstein                 17-FEB-96                                             
+Monday, the Nineteenth of August, 1996                                          
+                                                                                
+Fay                       17-AUG-97                                             
+Monday, the Twenty-Third of February, 1998                                      
+                                                                                
+
+LAST_NAME                 HIRE_DATE                                             
+------------------------- ---------                                             
+REVIEW                                                                          
+--------------------------------------------------------------------------------
+Higgins                   07-JUN-94                                             
+Monday, the Twelfth of December, 1994                                           
+                                                                                
+Gietz                     07-JUN-94                                             
+Monday, the Twelfth of December, 1994                                           
+                                                                                
+
+20 rows selected.
+
+HR@orcl> select last_name,hire_date, to_char(hire_date, 'DAY) DAY
+  2  FROM employees
+  3  order by to_char(hire_date - 1, 'd');
+ERROR:
+ORA-01756: quoted string not properly terminated 
+
+
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select last_name,hire_date, to_char(hire_date, 'DAY') DAY
+  2  FROM employees
+  3* order by to_char(hire_date - 1, 'd')
+HR@orcl> /
+
+LAST_NAME                 HIRE_DATE DAY                                         
+------------------------- --------- ------------------------------------        
+Grant                     24-MAY-99 MONDAY                                      
+Gietz                     07-JUN-94 TUESDAY                                     
+Taylor                    24-MAR-98 TUESDAY                                     
+Higgins                   07-JUN-94 TUESDAY                                     
+Rajs                      17-OCT-95 TUESDAY                                     
+Mourgos                   16-NOV-99 TUESDAY                                     
+Ernst                     21-MAY-91 TUESDAY                                     
+Davies                    29-JAN-97 WEDNESDAY                                   
+King                      17-JUN-87 WEDNESDAY                                   
+De Haan                   13-JAN-93 WEDNESDAY                                   
+Hunold                    03-JAN-90 WEDNESDAY                                   
+
+LAST_NAME                 HIRE_DATE DAY                                         
+------------------------- --------- ------------------------------------        
+Vargas                    09-JUL-98 THURSDAY                                    
+Kochhar                   21-SEP-89 THURSDAY                                    
+Whalen                    17-SEP-87 THURSDAY                                    
+Hartstein                 17-FEB-96 SATURDAY                                    
+Zlotkey                   29-JAN-00 SATURDAY                                    
+Abel                      11-MAY-96 SATURDAY                                    
+Matos                     15-MAR-98 SUNDAY                                      
+Lorentz                   07-FEB-99 SUNDAY                                      
+Fay                       17-AUG-97 SUNDAY                                      
+
+20 rows selected.
+
+HR@orcl> select last_name,nvl(to_char(commission_pct), 'No Commission')COMM
+  2  FROM EMPLOYEES;
+
+LAST_NAME                 COMM                                                  
+------------------------- ----------------------------------------              
+King                      No Commission                                         
+Kochhar                   No Commission                                         
+De Haan                   No Commission                                         
+Hunold                    No Commission                                         
+Ernst                     No Commission                                         
+Lorentz                   No Commission                                         
+Mourgos                   No Commission                                         
+Rajs                      No Commission                                         
+Davies                    No Commission                                         
+Matos                     No Commission                                         
+Vargas                    No Commission                                         
+
+LAST_NAME                 COMM                                                  
+------------------------- ----------------------------------------              
+Zlotkey                   .2                                                    
+Abel                      .3                                                    
+Taylor                    .2                                                    
+Grant                     .15                                                   
+Whalen                    No Commission                                         
+Hartstein                 No Commission                                         
+Fay                       No Commission                                         
+Higgins                   No Commission                                         
+Gietz                     No Commission                                         
+
+20 rows selected.
+
+HR@orcl> select rpad(last_name, 8 )||' ' || rpad(' ' , salary/1000+1, '*')
+  2  employees_and_their_salaries
+  3  from employees
+  4  order by salary desc;
+
+EMPLOYEES_AND_THEIR_SALARIES                                                    
+--------------------------------------------------------------------------------
+King      ************************                                              
+Kochhar   *****************                                                     
+De Haan   *****************                                                     
+Hartstei  *************                                                         
+Higgins   ************                                                          
+Abel      ***********                                                           
+Zlotkey   **********                                                            
+Hunold    *********                                                             
+Taylor    ********                                                              
+Gietz     ********                                                              
+Grant     *******                                                               
+
+EMPLOYEES_AND_THEIR_SALARIES                                                    
+--------------------------------------------------------------------------------
+Ernst     ******                                                                
+Fay       ******                                                                
+Mourgos   *****                                                                 
+Whalen    ****                                                                  
+Lorentz   ****                                                                  
+Rajs      ***                                                                   
+Davies    ***                                                                   
+Matos     **                                                                    
+Vargas    **                                                                    
+
+20 rows selected.
+
+HR@orcl> select job_id,decode (job_id,' ST_CLERK', 'E',
+  2  'SA_RE[', 'D',
+  3  'IT_PROG', 'C'
+  4  , 'ST_MAN', 'B',
+  5  'AD_PRES', 'A',
+  6  '0' GRADE
+  7  FROM EMPLOYEES;
+'0' GRADE
+    *
+ERROR at line 6:
+ORA-00907: missing right parenthesis 
+
+
+HR@orcl> ED
+Wrote file afiedt.buf
+
+  1  select job_id,decode (job_id,' ST_CLERK', 'E',
+  2  'SA_REP', 'D',
+  3  'IT_PROG', 'C',
+  4  'ST_MAN', 'B',
+  5  'AD_PRES', 'A',
+  6  '0' GRADE
+  7* FROM EMPLOYEES
+HR@orcl> /
+'0' GRADE
+    *
+ERROR at line 6:
+ORA-00907: missing right parenthesis 
+
+
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select job_id,decode (job_id,' ST_CLERK', 'E',
+  2  'SA_REP', 'D',
+  3  'IT_PROG', 'C',
+  4  'ST_MAN', 'B',
+  5  'AD_PRES', 'A',
+  6  '0') GRADE
+  7* FROM EMPLOYEES
+HR@orcl> /
+
+JOB_ID     G                                                                    
+---------- -                                                                    
+AC_ACCOUNT 0                                                                    
+AC_MGR     0                                                                    
+AD_ASST    0                                                                    
+AD_PRES    A                                                                    
+AD_VP      0                                                                    
+AD_VP      0                                                                    
+IT_PROG    C                                                                    
+IT_PROG    C                                                                    
+IT_PROG    C                                                                    
+MK_MAN     0                                                                    
+MK_REP     0                                                                    
+
+JOB_ID     G                                                                    
+---------- -                                                                    
+SA_MAN     0                                                                    
+SA_REP     D                                                                    
+SA_REP     D                                                                    
+SA_REP     D                                                                    
+ST_CLERK   0                                                                    
+ST_CLERK   0                                                                    
+ST_CLERK   0                                                                    
+ST_CLERK   0                                                                    
+ST_MAN     B                                                                    
+
+20 rows selected.
+
+HR@orcl> select job_id, case job_id when 'ST_CLERK' THEN 'E'
+  2  WHEN 'SA_REP' THEN 'D'
+  3  WHEN 'IT_PROG' THEN 'C'
+  4  WHEN 'ST_MAN' THEN 'B'
+  5  WHEN 'AD_PRES' THEN 'A'
+  6  ELSE '0' END GRADE
+  7  FROM employees;
+
+JOB_ID     G                                                                    
+---------- -                                                                    
+AC_ACCOUNT 0                                                                    
+AC_MGR     0                                                                    
+AD_ASST    0                                                                    
+AD_PRES    A                                                                    
+AD_VP      0                                                                    
+AD_VP      0                                                                    
+IT_PROG    C                                                                    
+IT_PROG    C                                                                    
+IT_PROG    C                                                                    
+MK_MAN     0                                                                    
+MK_REP     0                                                                    
+
+JOB_ID     G                                                                    
+---------- -                                                                    
+SA_MAN     0                                                                    
+SA_REP     D                                                                    
+SA_REP     D                                                                    
+SA_REP     D                                                                    
+ST_CLERK   E                                                                    
+ST_CLERK   E                                                                    
+ST_CLERK   E                                                                    
+ST_CLERK   E                                                                    
+ST_MAN     B                                                                    
+
+20 rows selected.
+
+
+
+
+
+--------------5´Ü¿ø ---------------
+
+HR@orcl> select round(max(salary),0)"Maximum",ROUND(MIN(SALARY),0) "Minimum",
+  2  ROUND(SUM(SALARY),0)"Sum",round(avg(salary),0)"Average"
+  3  from employees;
+
+   Maximum    Minimum        Sum    Average                                     
+---------- ---------- ---------- ----------                                     
+     24000       2500     175500       8775                                     
+
+HR@orcl> select job_id, round(max(salary),0) "Maximum", round(min(salary),0) "Minimum",
+  2  ROUND(SUM(salary),0)"Sum", ROUD(AVG(salary),0)"Average"
+  3  From employees
+  4  group by job_id;
+ROUND(SUM(salary),0)"Sum", ROUD(AVG(salary),0)"Average"
+                           *
+ERROR at line 2:
+ORA-00904: "ROUD": invalid identifier 
+
+
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select job_id, round(max(salary),0) "Maximum", round(min(salary),0) "Minimum",
+  2  ROUND(SUM(salary),0)"Sum", ROUnD(AVG(salary),0)"Average"
+  3  From employees
+  4* group by job_id
+HR@orcl> /
+
+JOB_ID        Maximum    Minimum        Sum    Average                          
+---------- ---------- ---------- ---------- ----------                          
+IT_PROG          9000       4200      19200       6400                          
+AC_MGR          12000      12000      12000      12000                          
+AC_ACCOUNT       8300       8300       8300       8300                          
+ST_MAN           5800       5800       5800       5800                          
+AD_ASST          4400       4400       4400       4400                          
+AD_VP           17000      17000      34000      17000                          
+SA_MAN          10500      10500      10500      10500                          
+MK_MAN          13000      13000      13000      13000                          
+AD_PRES         24000      24000      24000      24000                          
+SA_REP          11000       7000      26600       8867                          
+MK_REP           6000       6000       6000       6000                          
+
+JOB_ID        Maximum    Minimum        Sum    Average                          
+---------- ---------- ---------- ---------- ----------                          
+ST_CLERK         3500       2500      11700       2925                          
+
+12 rows selected.
+
+HR@orcl> select job_id, count(*)
+  2  from employees
+  3  group by job_id;
+
+JOB_ID       COUNT(*)                                                           
+---------- ----------                                                           
+AC_ACCOUNT          1                                                           
+AC_MGR              1                                                           
+AD_ASST             1                                                           
+AD_PRES             1                                                           
+AD_VP               2                                                           
+IT_PROG             3                                                           
+MK_MAN              1                                                           
+MK_REP              1                                                           
+SA_MAN              1                                                           
+SA_REP              3                                                           
+ST_CLERK            4                                                           
+
+JOB_ID       COUNT(*)                                                           
+---------- ----------                                                           
+ST_MAN              1                                                           
+
+12 rows selected.
+
+HR@orcl> select count(distinct manager_id)"Number of Managers"
+  2  from employees;
+
+Number of Managers                                                              
+------------------                                                              
+                 8                                                              
+
+HR@orcl> select max(salary) - min(salary) difference
+  2  from employees;
+
+DIFFERENCE                                                                      
+----------                                                                      
+     21500                                                                      
+
+HR@orcl> select manager_id, min(salary) from employees
+  2  where manager_id is not null
+  3  group by manager_id
+  4  having min(salary) > 6000
+  5  order by min(salary) desc;
+
+MANAGER_ID MIN(SALARY)                                                          
+---------- -----------                                                          
+       102        9000                                                          
+       205        8300                                                          
+       149        7000                                                          
+
+HR@orcl> slect count(*) total, sum(decode(to_char(hire_date, 'YYYY'),1996,1,0))
+SP2-0734: unknown command beginning "slect coun..." - rest of line ignored.
+HR@orcl> ED\
+
+HR@orcl> select count(*) total,sum(decode(to_char(hire_date, 'YYYY'),1996,1,0))"1995",
+  2  SUM(decode(to_char(hire_date,'YYYY'),1996,1,0))"1996",
+  3  SUM(DECODE(TO_CHAR(HIRE_DATE,'YYYY'),1997,1,0))"1997",
+  4  SUM(DECODE(TO_CHAR(hire_date, 'YYYY'),1998,1,0(("1998"
+  5  FROM EMPLOYEES;
+SUM(DECODE(TO_CHAR(hire_date, 'YYYY'),1998,1,0(("1998"
+                                              *
+ERROR at line 4:
+ORA-00907: missing right parenthesis 
+
+
+HR@orcl> ED
+Wrote file afiedt.buf
+
+  1  select count(*) total,sum(decode(to_char(hire_date, 'YYYY'),1996,1,0))"1995",
+  2  SUM(decode(to_char(hire_date,'YYYY'),1996,1,0))"1996",
+  3  SUM(DECODE(TO_CHAR(HIRE_DATE,'YYYY'),1997,1,0))"1997",
+  4  SUM(DECODE(TO_CHAR(hire_date, 'YYYY'),1998,1,0(("1998"
+  5* FROM EMPLOYEES
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select count(*) total,sum(decode(to_char(hire_date, 'YYYY'),1996,1,0))"1995",
+  2  SUM(decode(to_char(hire_date,'YYYY'),1996,1,0))"1996",
+  3  SUM(DECODE(TO_CHAR(HIRE_DATE,'YYYY'),1997,1,0))"1997",
+  4  SUM(DECODE(TO_CHAR(hire_date, 'YYYY'),1998,1,0))"1998"
+  5* FROM EMPLOYEES
+HR@orcl> /
+
+     TOTAL       1995       1996       1997       1998                          
+---------- ---------- ---------- ---------- ----------                          
+        20          2          2          2          3                          
+
+HR@orcl> select job_id"Job", SUM(DECODE(department_id,20,salary))"Dept 20",
+  2  SUM(DECODE(DEPARTMENT_ID,50,SALARY))"DEPT 50",
+  3  SUM(DECODE(DEPARTMENT_ID,80,SALARY))"DEPT 80",
+  4  SUM(DECODE(DEPARTMENT_ID,90,SALARY))"DEPT 90",
+  5  SUM(SALARY) "Total"
+  6  from employees
+  7  group by job_id;
+
+Job           Dept 20    DEPT 50    DEPT 80    DEPT 90      Total               
+---------- ---------- ---------- ---------- ---------- ----------               
+IT_PROG                                                     19200               
+AC_MGR                                                      12000               
+AC_ACCOUNT                                                   8300               
+ST_MAN                      5800                             5800               
+AD_ASST                                                      4400               
+AD_VP                                            34000      34000               
+SA_MAN                                10500                 10500               
+MK_MAN          13000                                       13000               
+AD_PRES                                          24000      24000               
+SA_REP                                19600                 26600               
+MK_REP           6000                                        6000               
+
+Job           Dept 20    DEPT 50    DEPT 80    DEPT 90      Total               
+---------- ---------- ---------- ---------- ---------- ----------               
+ST_CLERK                   11700                            11700               
+
+12 rows selected.
+
+HR@orcl> select location_id, street_address,city,state_province,country_name
+  2  from locations natural join coutries;
+from locations natural join coutries
+                            *
+ERROR at line 2:
+ORA-00942: table or view does not exist 
+
+
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select location_id, street_address,city,state_province,country_name
+  2* from locations natural join coutries
+HR@orcl> /
+from locations natural join coutries
+                            *
+ERROR at line 2:
+ORA-00942: table or view does not exist 
+
+
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select location_id, street_address,city,state_province,country_name
+  2* from locations natural join countries
+HR@orcl> /
+
+LOCATION_ID STREET_ADDRESS                                                      
+----------- ----------------------------------------                            
+CITY                           STATE_PROVINCE                                   
+------------------------------ -------------------------                        
+COUNTRY_NAME                                                                    
+----------------------------------------                                        
+       1400 2014 Jabberwocky Rd                                                 
+Southlake                      Texas                                            
+United States of America                                                        
+                                                                                
+       1500 2011 Interiors Blvd                                                 
+South San Francisco            California                                       
+United States of America                                                        
+
+LOCATION_ID STREET_ADDRESS                                                      
+----------- ----------------------------------------                            
+CITY                           STATE_PROVINCE                                   
+------------------------------ -------------------------                        
+COUNTRY_NAME                                                                    
+----------------------------------------                                        
+                                                                                
+       1700 2004 Charade Rd                                                     
+Seattle                        Washington                                       
+United States of America                                                        
+                                                                                
+       1800 460 Bloor St. W.                                                    
+Toronto                        Ontario                                          
+
+LOCATION_ID STREET_ADDRESS                                                      
+----------- ----------------------------------------                            
+CITY                           STATE_PROVINCE                                   
+------------------------------ -------------------------                        
+COUNTRY_NAME                                                                    
+----------------------------------------                                        
+Canada                                                                          
+                                                                                
+       2500 Magdalen Centre, The Oxford Science Park                            
+Oxford                         Oxford                                           
+United Kingdom                                                                  
+                                                                                
+
+HR@orcl> select last_name, department_id,department_name
+  2  from employees join departments
+  3  using(department_id);
+
+LAST_NAME                 DEPARTMENT_ID DEPARTMENT_NAME                         
+------------------------- ------------- ------------------------------          
+Abel                                 80 Sales                                   
+Davies                               50 Shipping                                
+De Haan                              90 Executive                               
+Ernst                                60 IT                                      
+Fay                                  20 Marketing                               
+Gietz                               110 Accounting                              
+Hartstein                            20 Marketing                               
+Higgins                             110 Accounting                              
+Hunold                               60 IT                                      
+King                                 90 Executive                               
+Kochhar                              90 Executive                               
+
+LAST_NAME                 DEPARTMENT_ID DEPARTMENT_NAME                         
+------------------------- ------------- ------------------------------          
+Lorentz                              60 IT                                      
+Matos                                50 Shipping                                
+Mourgos                              50 Shipping                                
+Rajs                                 50 Shipping                                
+Taylor                               80 Sales                                   
+Vargas                               50 Shipping                                
+Whalen                               10 Administration                          
+Zlotkey                              80 Sales                                   
+
+19 rows selected.
+
+HR@orcl> select e.last_name, e.job_id,e.department_id,d.department_name
+  2  from employees e join departments d
+  3  on (e.department_id = d.department_id)
+  4  join locations 1
+  5  on (d.location_id = l.location_id)
+  6  where lower(l.city
+  7  /
+join locations 1
+               *
+ERROR at line 4:
+ORA-00905: missing keyword 
+
+
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select e.last_name, e.job_id,e.department_id,d.department_name
+  2  from employees e join departments d
+  3  on (e.department_id = d.department_id)
+  4  join locations l
+  5  on (d.location_id = l.location_id)
+  6* where lower(l.city) = 'toronto';
+HR@orcl> /
+where lower(l.city) = 'toronto';
+                               *
+ERROR at line 6:
+ORA-00911: invalid character 
+
+
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select e.last_name, e.job_id,e.department_id,d.department_name
+  2  from employees e join departments d
+  3  on (e.department_id = d.department_id)
+  4  join locations l
+  5  on (d.location_id = l.location_id)
+  6* where lower(l.city) = 'toronto'
+HR@orcl> /
+
+LAST_NAME                 JOB_ID     DEPARTMENT_ID                              
+------------------------- ---------- -------------                              
+DEPARTMENT_NAME                                                                 
+------------------------------                                                  
+Hartstein                 MK_MAN                20                              
+Marketing                                                                       
+                                                                                
+Fay                       MK_REP                20                              
+Marketing                                                                       
+                                                                                
+
+HR@orcl> select w.last_name"Employee", w.wmployee_id " EMP#", m.last_name "Manager",
+  2  m.employee_id"Mgr#"
+  3  from employees w join employees m
+  4  on (w.manager_id = m.employee_id);
+select w.last_name"Employee", w.wmployee_id " EMP#", m.last_name "Manager",
+                              *
+ERROR at line 1:
+ORA-00904: "W"."WMPLOYEE_ID": invalid identifier 
+
+
+HR@orcl> save lab_06_04.sql
+Created file lab_06_04.sql
+HR@orcl> @ lab_06_04.sql
+select w.last_name"Employee", w.wmployee_id " EMP#", m.last_name "Manager",
+                              *
+ERROR at line 1:
+ORA-00904: "W"."WMPLOYEE_ID": invalid identifier 
+
+
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select w.last_name"Employee", w.employee_id " EMP#", m.last_name "Manager",
+  2  m.employee_id"Mgr#"
+  3  from employees w join employees m
+  4* on (w.manager_id = m.employee_id)
+HR@orcl> /
+
+Employee                        EMP# Manager                         Mgr#       
+------------------------- ---------- ------------------------- ----------       
+Kochhar                          101 King                             100       
+De Haan                          102 King                             100       
+Hunold                           103 De Haan                          102       
+Ernst                            104 Hunold                           103       
+Lorentz                          107 Hunold                           103       
+Mourgos                          124 King                             100       
+Rajs                             141 Mourgos                          124       
+Davies                           142 Mourgos                          124       
+Matos                            143 Mourgos                          124       
+Vargas                           144 Mourgos                          124       
+Zlotkey                          149 King                             100       
+
+Employee                        EMP# Manager                         Mgr#       
+------------------------- ---------- ------------------------- ----------       
+Abel                             174 Zlotkey                          149       
+Taylor                           176 Zlotkey                          149       
+Grant                            178 Zlotkey                          149       
+Whalen                           200 Kochhar                          101       
+Hartstein                        201 King                             100       
+Fay                              202 Hartstein                        201       
+Higgins                          205 Kochhar                          101       
+Gietz                            206 Higgins                          205       
+
+19 rows selected.
+
+HR@orcl> save lab_06_04.sql
+SP2-0540: File "lab_06_04.sql" already exists.
+Use "SAVE filename[.ext] REPLACE".
+HR@orcl> save lab_06_044.sql
+Created file lab_06_044.sql
+HR@orcl> @lab_06_044.sql
+
+Employee                        EMP# Manager                         Mgr#       
+------------------------- ---------- ------------------------- ----------       
+Kochhar                          101 King                             100       
+De Haan                          102 King                             100       
+Hunold                           103 De Haan                          102       
+Ernst                            104 Hunold                           103       
+Lorentz                          107 Hunold                           103       
+Mourgos                          124 King                             100       
+Rajs                             141 Mourgos                          124       
+Davies                           142 Mourgos                          124       
+Matos                            143 Mourgos                          124       
+Vargas                           144 Mourgos                          124       
+Zlotkey                          149 King                             100       
+
+Employee                        EMP# Manager                         Mgr#       
+------------------------- ---------- ------------------------- ----------       
+Abel                             174 Zlotkey                          149       
+Taylor                           176 Zlotkey                          149       
+Grant                            178 Zlotkey                          149       
+Whalen                           200 Kochhar                          101       
+Hartstein                        201 King                             100       
+Fay                              202 Hartstein                        201       
+Higgins                          205 Kochhar                          101       
+Gietz                            206 Higgins                          205       
+
+19 rows selected.
+
+HR@orcl> eed
+SP2-0042: unknown command "eed" - rest of line ignored.
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select w.last_name"Employee", w.employee_id " EMP#", m.last_name "Manager",
+  2  m.employee_id"Mgr#"
+  3  from employees w left outer join employees m
+  4  on (w.manager_id = m.employee_id)
+  5* order by 2
+HR@orcl> save lab_06_05.sql
+Created file lab_06_05.sql
+HR@orcl> @lab_06_05.sql
+
+Employee                        EMP# Manager                         Mgr#       
+------------------------- ---------- ------------------------- ----------       
+King                             100                                            
+Kochhar                          101 King                             100       
+De Haan                          102 King                             100       
+Hunold                           103 De Haan                          102       
+Ernst                            104 Hunold                           103       
+Lorentz                          107 Hunold                           103       
+Mourgos                          124 King                             100       
+Rajs                             141 Mourgos                          124       
+Davies                           142 Mourgos                          124       
+Matos                            143 Mourgos                          124       
+Vargas                           144 Mourgos                          124       
+
+Employee                        EMP# Manager                         Mgr#       
+------------------------- ---------- ------------------------- ----------       
+Zlotkey                          149 King                             100       
+Abel                             174 Zlotkey                          149       
+Taylor                           176 Zlotkey                          149       
+Grant                            178 Zlotkey                          149       
+Whalen                           200 Kochhar                          101       
+Hartstein                        201 King                             100       
+Fay                              202 Hartstein                        201       
+Higgins                          205 Kochhar                          101       
+Gietz                            206 Higgins                          205       
+
+20 rows selected.
+
+HR@orcl> select e.department_id department, e.last_name employee, c.last_name colleague
+  2  from employees e join employess c
+  3  on (e.department_id = c.department_id)
+  4  where e.employee_id <> c.employee_id
+  5  order by e.department_id, e.last_name , c.last_name;
+from employees e join employess c
+                      *
+ERROR at line 2:
+ORA-00942: table or view does not exist 
+
+
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select e.department_id department, e.last_name employee, c.last_name colleague
+  2  from employees e join employees c
+  3  on (e.department_id = c.department_id)
+  4  where e.employee_id <> c.employee_id
+  5* order by e.department_id, e.last_name , c.last_name
+HR@orcl> /
+
+DEPARTMENT EMPLOYEE                  COLLEAGUE                                  
+---------- ------------------------- -------------------------                  
+        20 Fay                       Hartstein                                  
+        20 Hartstein                 Fay                                        
+        50 Davies                    Matos                                      
+        50 Davies                    Mourgos                                    
+        50 Davies                    Rajs                                       
+        50 Davies                    Vargas                                     
+        50 Matos                     Davies                                     
+        50 Matos                     Mourgos                                    
+        50 Matos                     Rajs                                       
+        50 Matos                     Vargas                                     
+        50 Mourgos                   Davies                                     
+
+DEPARTMENT EMPLOYEE                  COLLEAGUE                                  
+---------- ------------------------- -------------------------                  
+        50 Mourgos                   Matos                                      
+        50 Mourgos                   Rajs                                       
+        50 Mourgos                   Vargas                                     
+        50 Rajs                      Davies                                     
+        50 Rajs                      Matos                                      
+        50 Rajs                      Mourgos                                    
+        50 Rajs                      Vargas                                     
+        50 Vargas                    Davies                                     
+        50 Vargas                    Matos                                      
+        50 Vargas                    Mourgos                                    
+        50 Vargas                    Rajs                                       
+
+DEPARTMENT EMPLOYEE                  COLLEAGUE                                  
+---------- ------------------------- -------------------------                  
+        60 Ernst                     Hunold                                     
+        60 Ernst                     Lorentz                                    
+        60 Hunold                    Ernst                                      
+        60 Hunold                    Lorentz                                    
+        60 Lorentz                   Ernst                                      
+        60 Lorentz                   Hunold                                     
+        80 Abel                      Taylor                                     
+        80 Abel                      Zlotkey                                    
+        80 Taylor                    Abel                                       
+        80 Taylor                    Zlotkey                                    
+        80 Zlotkey                   Abel                                       
+
+DEPARTMENT EMPLOYEE                  COLLEAGUE                                  
+---------- ------------------------- -------------------------                  
+        80 Zlotkey                   Taylor                                     
+        90 De Haan                   King                                       
+        90 De Haan                   Kochhar                                    
+        90 King                      De Haan                                    
+        90 King                      Kochhar                                    
+        90 Kochhar                   De Haan                                    
+        90 Kochhar                   King                                       
+       110 Gietz                     Higgins                                    
+       110 Higgins                   Gietz                                      
+
+42 rows selected.
+
+HR@orcl> desc job_grades
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ GRADE_LEVEL                                        VARCHAR2(3)
+ LOWEST_SAL                                         NUMBER
+ HIGHEST_SAL                                        NUMBER
+
+HR@orcl> select e.last_name,  e.job_id , d.department_name, e.salary,j-grade_level
+  2  from employees e join departments d
+  3  on (e.department_id = d.department_id)
+  4  join job_grades j
+  5  on (e.salary between j.lowest_sal and j.highest_sal)l
+  6  ;
+on (e.salary between j.lowest_sal and j.highest_sal)l
+                                                    *
+ERROR at line 5:
+ORA-00933: SQL command not properly ended 
+
+
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select e.last_name,  e.job_id , d.department_name, e.salary,j-grade_level
+  2  from employees e join departments d
+  3  on (e.department_id = d.department_id)
+  4  join job_grades j
+  5* on (e.salary between j.lowest_sal and j.highest_sal)
+  6  /
+select e.last_name,  e.job_id , d.department_name, e.salary,j-grade_level
+                                                            *
+ERROR at line 1:
+ORA-00904: "J": invalid identifier 
+
+
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select e.last_name,  e.job_id , d.department_name, e.salary,j.grade_level
+  2  from employees e join departments d
+  3  on (e.department_id = d.department_id)
+  4  join job_grades j
+  5* on (e.salary between j.lowest_sal and j.highest_sal)
+HR@orcl> /
+
+LAST_NAME                 JOB_ID     DEPARTMENT_NAME                    SALARY  
+------------------------- ---------- ------------------------------ ----------  
+GRA                                                                             
+---                                                                             
+Vargas                    ST_CLERK   Shipping                             2500  
+A                                                                               
+                                                                                
+Matos                     ST_CLERK   Shipping                             2600  
+A                                                                               
+                                                                                
+Davies                    ST_CLERK   Shipping                             3100  
+B                                                                               
+                                                                                
+
+LAST_NAME                 JOB_ID     DEPARTMENT_NAME                    SALARY  
+------------------------- ---------- ------------------------------ ----------  
+GRA                                                                             
+---                                                                             
+Rajs                      ST_CLERK   Shipping                             3500  
+B                                                                               
+                                                                                
+Lorentz                   IT_PROG    IT                                   4200  
+B                                                                               
+                                                                                
+Whalen                    AD_ASST    Administration                       4400  
+B                                                                               
+                                                                                
+
+LAST_NAME                 JOB_ID     DEPARTMENT_NAME                    SALARY  
+------------------------- ---------- ------------------------------ ----------  
+GRA                                                                             
+---                                                                             
+Mourgos                   ST_MAN     Shipping                             5800  
+B                                                                               
+                                                                                
+Ernst                     IT_PROG    IT                                   6000  
+C                                                                               
+                                                                                
+Fay                       MK_REP     Marketing                            6000  
+C                                                                               
+                                                                                
+
+LAST_NAME                 JOB_ID     DEPARTMENT_NAME                    SALARY  
+------------------------- ---------- ------------------------------ ----------  
+GRA                                                                             
+---                                                                             
+Gietz                     AC_ACCOUNT Accounting                           8300  
+C                                                                               
+                                                                                
+Taylor                    SA_REP     Sales                                8600  
+C                                                                               
+                                                                                
+Hunold                    IT_PROG    IT                                   9000  
+C                                                                               
+                                                                                
+
+LAST_NAME                 JOB_ID     DEPARTMENT_NAME                    SALARY  
+------------------------- ---------- ------------------------------ ----------  
+GRA                                                                             
+---                                                                             
+Zlotkey                   SA_MAN     Sales                               10500  
+D                                                                               
+                                                                                
+Abel                      SA_REP     Sales                               11000  
+D                                                                               
+                                                                                
+Higgins                   AC_MGR     Accounting                          12000  
+D                                                                               
+                                                                                
+
+LAST_NAME                 JOB_ID     DEPARTMENT_NAME                    SALARY  
+------------------------- ---------- ------------------------------ ----------  
+GRA                                                                             
+---                                                                             
+Hartstein                 MK_MAN     Marketing                           13000  
+D                                                                               
+                                                                                
+Kochhar                   AD_VP      Executive                           17000  
+E                                                                               
+                                                                                
+De Haan                   AD_VP      Executive                           17000  
+E                                                                               
+                                                                                
+
+LAST_NAME                 JOB_ID     DEPARTMENT_NAME                    SALARY  
+------------------------- ---------- ------------------------------ ----------  
+GRA                                                                             
+---                                                                             
+King                      AD_PRES    Executive                           24000  
+E                                                                               
+                                                                                
+
+19 rows selected.
+
+HR@orcl> select last_name, hire_date
+  2  from employees
+  3  where department_id = (select department_id form employees
+  4  where last_name = 'Zlotkey')
+  5  and last_name <> 'Zlotkey';
+where department_id = (select department_id form employees
+                                                 *
+ERROR at line 3:
+ORA-00923: FROM keyword not found where expected 
+
+
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select last_name, hire_date
+  2  from employees
+  3  where department_id = (select department_id from employees
+  4  where last_name = 'Zlotkey')
+  5* and last_name <> 'Zlotkey'
+HR@orcl> .
+HR@orcl> /
+
+LAST_NAME                 HIRE_DATE                                             
+------------------------- ---------                                             
+Abel                      11-MAY-96                                             
+Taylor                    24-MAR-98                                             
+
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select last_name, hire_date
+  2  from employees
+  3  where department_id = (select department_id from employees
+  4  where last_name = 'Zlotkey')
+  5* and last_name <> 'Zlotkey'
+HR@orcl> /
+
+LAST_NAME                 HIRE_DATE                                             
+------------------------- ---------                                             
+Abel                      11-MAY-96                                             
+Taylor                    24-MAR-98                                             
+
+HR@orcl> select employee_id,last_name from employees
+  2  where salary > (select avg(salary)from employes)
+  3  order by salary;
+where salary > (select avg(salary)from employes)
+                                       *
+ERROR at line 2:
+ORA-00942: table or view does not exist 
+
+
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select employee_id,last_name from employees
+  2  where salary > (select avg(salary)from employees)
+  3* order by salary
+HR@orcl> /
+
+EMPLOYEE_ID LAST_NAME                                                           
+----------- -------------------------                                           
+        103 Hunold                                                              
+        149 Zlotkey                                                             
+        174 Abel                                                                
+        205 Higgins                                                             
+        201 Hartstein                                                           
+        101 Kochhar                                                             
+        102 De Haan                                                             
+        100 King                                                                
+
+8 rows selected.
+
+HR@orcl> select employee_id,last_name
+  2  from employees
+  3  where department_id in(select department_id from employees
+  4  where last_name like '%u%');
+
+EMPLOYEE_ID LAST_NAME                                                           
+----------- -------------------------                                           
+        124 Mourgos                                                             
+        141 Rajs                                                                
+        142 Davies                                                              
+        143 Matos                                                               
+        144 Vargas                                                              
+        103 Hunold                                                              
+        104 Ernst                                                               
+        107 Lorentz                                                             
+
+8 rows selected.
+
+HR@orcl> select last_name ,department_id,job_id from employees
+  2  where department_id in (select department_id from departments
+  3  where location_id = 1700);
+
+LAST_NAME                 DEPARTMENT_ID JOB_ID                                  
+------------------------- ------------- ----------                              
+King                                 90 AD_PRES                                 
+Kochhar                              90 AD_VP                                   
+De Haan                              90 AD_VP                                   
+Whalen                               10 AD_ASST                                 
+Higgins                             110 AC_MGR                                  
+Gietz                               110 AC_ACCOUNT                              
+
+6 rows selected.
+
+HR@orcl> select last_name, salary
+  2  from employees
+  3  where manager_id = (select emplyee_id from employees
+  4  where last_name = 'Kong');
+where manager_id = (select emplyee_id from employees
+                           *
+ERROR at line 3:
+ORA-00904: "EMPLYEE_ID": invalid identifier 
+
+
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select last_name, salary
+  2  from employees
+  3  where manager_id = (select employee_id from employees
+  4* where last_name = 'King')
+HR@orcl> /
+
+LAST_NAME                     SALARY                                            
+------------------------- ----------                                            
+Kochhar                        17000                                            
+De Haan                        17000                                            
+Mourgos                         5800                                            
+Zlotkey                        10500                                            
+Hartstein                      13000                                            
+
+HR@orcl> select department_id,last_name,job_id
+  2  from employees
+  3  where department_id in(select department_id from departments
+  4  where depatment_name = 'Executive');
+where depatment_name = 'Executive')
+      *
+ERROR at line 4:
+ORA-00904: "DEPATMENT_NAME": invalid identifier 
+
+
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select department_id,last_name,job_id
+  2  from employees
+  3  where department_id in(select department_id from departments
+  4* where department_name = 'Executive')
+HR@orcl> /
+
+DEPARTMENT_ID LAST_NAME                 JOB_ID                                  
+------------- ------------------------- ----------                              
+           90 King                      AD_PRES                                 
+           90 Kochhar                   AD_VP                                   
+           90 De Haan                   AD_VP                                   
+
+HR@orcl> select employee_id,last_name,salary
+  2  from employees
+  3  where department_id in(select department_id from employees
+  4  where last_name like '%u%')
+  5  and salary > (select abg(salary)from employees);
+and salary > (select abg(salary)from employees)
+                     *
+ERROR at line 5:
+ORA-00904: "ABG": invalid identifier 
+
+
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select employee_id,last_name,salary
+  2  from employees
+  3  where department_id in(select department_id from employees
+  4  where last_name like '%u%')
+  5* and salary > (select avg(salary)from employees)
+HR@orcl> /
+
+EMPLOYEE_ID LAST_NAME                     SALARY                                
+----------- ------------------------- ----------                                
+        103 Hunold                          9000                                
+
+HR@orcl> select department_id from departments
+  2  minus
+  3  select department_id from employees
+  4  where job_id = 'ST
+  5  _CLERK';
+
+DEPARTMENT_ID                                                                   
+-------------                                                                   
+           10                                                                   
+           20                                                                   
+           50                                                                   
+           60                                                                   
+           80                                                                   
+           90                                                                   
+          110                                                                   
+          190                                                                   
+
+8 rows selected.
+
+HR@orcl> select country_id,country_name from coutries
+  2  minus
+  3  select l.country_id,c.country_name from locations l, countries c
+  4  where l.country_id = c.country_id;
+select country_id,country_name from coutries
+                                    *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select country_id,country_name from countries
+  2  minus
+  3  select l.country_id,c.country_name from locations l, countries c
+  4* where l.country_id = c.country_id
+HR@orcl> .
+HR@orcl> /
+
+CO COUNTRY_NAME                                                                 
+-- ----------------------------------------                                     
+DE Germany                                                                      
+
+HR@orcl> column dummy noprint
+HR@orcl> select job_id,department_id,'x' dummy from emplyees
+  2  where department_id = 10
+  3  union
+  4  select job_id ,department_id,'y' from employees
+  5  where department_id = 50
+  6  union
+  7  select job_id,department_id,'x' from employees
+  8  where department_id =20
+  9  order by 3;
+select job_id,department_id,'x' dummy from emplyees
+                                           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+HR@orcl> column dummy print
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select job_id,department_id,'x' dummy from emplyees
+  2  where department_id = 10
+  3  union
+  4  select job_id ,department_id,'y' from employees
+  5  where department_id = 50
+  6  union
+  7  select job_id,department_id,'x' from employees
+  8  where department_id =20
+  9* order by 3
+HR@orcl> /
+select job_id,department_id,'x' dummy from emplyees
+                                           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+HR@orcl> ed
+Wrote file afiedt.buf
+
+  1  select job_id,department_id,'x' dummy from employees
+  2  where department_id = 10
+  3  union
+  4  select job_id ,department_id,'y' from employees
+  5  where department_id = 50
+  6  union
+  7  select job_id,department_id,'x' from employees
+  8  where department_id =20
+  9* order by 3
+HR@orcl> /
+
+JOB_ID     DEPARTMENT_ID D                                                      
+---------- ------------- -                                                      
+AD_ASST               10 x                                                      
+MK_MAN                20 x                                                      
+MK_REP                20 x                                                      
+ST_CLERK              50 y                                                      
+ST_MAN                50 y                                                      
+
+HR@orcl> spool off

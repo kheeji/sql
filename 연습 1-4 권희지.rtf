@@ -1,0 +1,671 @@
+{\rtf1\ansi\ansicpg949\deff0\deflang1033\deflangfe1042{\fonttbl{\f0\fnil\fcharset129 \'b1\'bc\'b8\'b2;}{\f1\fnil\fcharset129 \'b8\'bc\'c0\'ba \'b0\'ed\'b5\'f1;}}
+{\*\generator Msftedit 5.41.21.2512;}\viewkind4\uc1\pard\lang1042\f0\fs22 HR@orcl> connect hr/hr\par
+Connected.\par
+HR@orcl> describe departments\par
+ Name                                      Null?    Type\par
+ ----------------------------------------- -------- ----------------------------\par
+ DEPARTMENT_ID                             NOT NULL NUMBER(4)\par
+ DEPARTMENT_NAME                           NOT NULL VARCHAR2(30)\par
+ MANAGER_ID                                         NUMBER(6)\par
+ LOCATION_ID                                        NUMBER(4)\par
+\par
+HR@orcl> select *\par
+  2  from departments;\par
+\par
+DEPARTMENT_ID DEPARTMENT_NAME                MANAGER_ID LOCATION_ID             \par
+------------- ------------------------------ ---------- -----------             \par
+           10 Administration                        200        1700             \par
+           20 Marketing                             201        1800             \par
+           50 Shipping                              124        1500             \par
+           60 IT                                    103        1400             \par
+           80 Sales                                 149        2500             \par
+           90 Executive                             100        1700             \par
+          110 Accounting                            205        1700             \par
+          190 Contracting                                      1700             \par
+\par
+8 rows selected.\par
+\par
+HR@orcl> describe employees\par
+ Name                                      Null?    Type\par
+ ----------------------------------------- -------- ----------------------------\par
+ EMPLOYEE_ID                               NOT NULL NUMBER(6)\par
+ FIRST_NAME                                         VARCHAR2(20)\par
+ LAST_NAME                                 NOT NULL VARCHAR2(25)\par
+ EMAIL                                     NOT NULL VARCHAR2(25)\par
+ PHONE_NUMBER                                       VARCHAR2(20)\par
+ HIRE_DATE                                 NOT NULL DATE\par
+ JOB_ID                                    NOT NULL VARCHAR2(10)\par
+ SALARY                                             NUMBER(8,2)\par
+ COMMISSION_PCT                                     NUMBER(2,2)\par
+ MANAGER_ID                                         NUMBER(6)\par
+ DEPARTMENT_ID                                      NUMBER(4)\par
+\par
+HR@orcl> select employee_id, last_name , job_id,hire_date StartDate\par
+  2  from employees;\par
+\par
+EMPLOYEE_ID LAST_NAME                 JOB_ID     STARTDATE                      \par
+----------- ------------------------- ---------- ---------                      \par
+        100 King                      AD_PRES    17-JUN-87                      \par
+        101 Kochhar                   AD_VP      21-SEP-89                      \par
+        102 De Haan                   AD_VP      13-JAN-93                      \par
+        103 Hunold                    IT_PROG    03-JAN-90                      \par
+        104 Ernst                     IT_PROG    21-MAY-91                      \par
+        107 Lorentz                   IT_PROG    07-FEB-99                      \par
+        124 Mourgos                   ST_MAN     16-NOV-99                      \par
+        141 Rajs                      ST_CLERK   17-OCT-95                      \par
+        142 Davies                    ST_CLERK   29-JAN-97                      \par
+        143 Matos                     ST_CLERK   15-MAR-98                      \par
+        144 Vargas                    ST_CLERK   09-JUL-98                      \par
+\par
+EMPLOYEE_ID LAST_NAME                 JOB_ID     STARTDATE                      \par
+----------- ------------------------- ---------- ---------                      \par
+        149 Zlotkey                   SA_MAN     29-JAN-00                      \par
+        174 Abel                      SA_REP     11-MAY-96                      \par
+        176 Taylor                    SA_REP     24-MAR-98                      \par
+        178 Grant                     SA_REP     24-MAY-99                      \par
+        200 Whalen                    AD_ASST    17-SEP-87                      \par
+        201 Hartstein                 MK_MAN     17-FEB-96                      \par
+        202 Fay                       MK_REP     17-AUG-97                      \par
+        205 Higgins                   AC_MGR     07-JUN-94                      \par
+        206 Gietz                     AC_ACCOUNT 07-JUN-94                      \par
+\par
+20 rows selected.\par
+\par
+HR@orcl> save lab01_03.sql\par
+Created file lab01_03.sql\par
+HR@orcl> select distinct job_id\par
+  2  from employees;\par
+\par
+JOB_ID                                                                          \par
+----------                                                                      \par
+AC_ACCOUNT                                                                      \par
+AC_MGR                                                                          \par
+AD_ASST                                                                         \par
+AD_PRES                                                                         \par
+AD_VP                                                                           \par
+IT_PROG                                                                         \par
+MK_MAN                                                                          \par
+MK_REP                                                                          \par
+SA_MAN                                                                          \par
+SA_REP                                                                          \par
+ST_CLERK                                                                        \par
+\par
+JOB_ID                                                                          \par
+----------                                                                      \par
+ST_MAN                                                                          \par
+\par
+12 rows selected.\par
+\par
+HR@orcl> select employee_id "Emp #", last_name "Employee",\par
+  2  job_id "Job",hire_date "Hire Date"\par
+  3  From employees\par
+  4  /\par
+\par
+     Emp # Employee                  Job        Hire Date                       \par
+---------- ------------------------- ---------- ---------                       \par
+       100 King                      AD_PRES    17-JUN-87                       \par
+       101 Kochhar                   AD_VP      21-SEP-89                       \par
+       102 De Haan                   AD_VP      13-JAN-93                       \par
+       103 Hunold                    IT_PROG    03-JAN-90                       \par
+       104 Ernst                     IT_PROG    21-MAY-91                       \par
+       107 Lorentz                   IT_PROG    07-FEB-99                       \par
+       124 Mourgos                   ST_MAN     16-NOV-99                       \par
+       141 Rajs                      ST_CLERK   17-OCT-95                       \par
+       142 Davies                    ST_CLERK   29-JAN-97                       \par
+       143 Matos                     ST_CLERK   15-MAR-98                       \par
+       144 Vargas                    ST_CLERK   09-JUL-98                       \par
+\par
+     Emp # Employee                  Job        Hire Date                       \par
+---------- ------------------------- ---------- ---------                       \par
+       149 Zlotkey                   SA_MAN     29-JAN-00                       \par
+       174 Abel                      SA_REP     11-MAY-96                       \par
+       176 Taylor                    SA_REP     24-MAR-98                       \par
+       178 Grant                     SA_REP     24-MAY-99                       \par
+       200 Whalen                    AD_ASST    17-SEP-87                       \par
+       201 Hartstein                 MK_MAN     17-FEB-96                       \par
+       202 Fay                       MK_REP     17-AUG-97                       \par
+       205 Higgins                   AC_MGR     07-JUN-94                       \par
+       206 Gietz                     AC_ACCOUNT 07-JUN-94                       \par
+\par
+20 rows selected.\par
+\par
+HR@orcl> SELECT last_name||', '||job_id "Employee and Title"\par
+  2  FROM employees;\par
+\par
+Employee and Title                                                              \par
+-------------------------------------                                           \par
+Abel, SA_REP                                                                    \par
+Davies, ST_CLERK                                                                \par
+De Haan, AD_VP                                                                  \par
+Ernst, IT_PROG                                                                  \par
+Fay, MK_REP                                                                     \par
+Gietz, AC_ACCOUNT                                                               \par
+Grant, SA_REP                                                                   \par
+Hartstein, MK_MAN                                                               \par
+Higgins, AC_MGR                                                                 \par
+Hunold, IT_PROG                                                                 \par
+King, AD_PRES                                                                   \par
+\par
+Employee and Title                                                              \par
+-------------------------------------                                           \par
+Kochhar, AD_VP                                                                  \par
+Lorentz, IT_PROG                                                                \par
+Matos, ST_CLERK                                                                 \par
+Mourgos, ST_MAN                                                                 \par
+Rajs, ST_CLERK                                                                  \par
+Taylor, SA_REP                                                                  \par
+Vargas, ST_CLERK                                                                \par
+Whalen, AD_ASST                                                                 \par
+Zlotkey, SA_MAN                                                                 \par
+\par
+20 rows selected.\par
+\par
+HR@orcl> SELECT last_name, salary\par
+  2  FROM employees\par
+  3  WHERE salary > 12000;\par
+\par
+LAST_NAME                     SALARY                                            \par
+------------------------- ----------                                            \par
+King                           24000                                            \par
+Kochhar                        17000                                            \par
+De Haan                        17000                                            \par
+Hartstein                      13000                                            \par
+\par
+HR@orcl> SELECT last_name, department_id\par
+  2  From employees\par
+  3  where employee_id = 176;\par
+\par
+LAST_NAME                 DEPARTMENT_ID                                         \par
+------------------------- -------------                                         \par
+Taylor                               80                                         \par
+\par
+HR@orcl> select last_name, salary\par
+  2  from employees\par
+  3  where salary not between 5000 and 12000;\par
+\par
+LAST_NAME                     SALARY                                            \par
+------------------------- ----------                                            \par
+King                           24000                                            \par
+Kochhar                        17000                                            \par
+De Haan                        17000                                            \par
+Lorentz                         4200                                            \par
+Rajs                            3500                                            \par
+Davies                          3100                                            \par
+Matos                           2600                                            \par
+Vargas                          2500                                            \par
+Whalen                          4400                                            \par
+Hartstein                      13000                                            \par
+\par
+10 rows selected.\par
+\par
+HR@orcl> ed\par
+Wrote file afiedt.buf\par
+\par
+  1  select last_name , job_id, hire_date\par
+  2  from employees\par
+  3  where last_name in ('Matos','Taylor')\par
+  4* order by hire_date\par
+HR@orcl> /\par
+\par
+LAST_NAME                 JOB_ID     HIRE_DATE                                  \par
+------------------------- ---------- ---------                                  \par
+Matos                     ST_CLERK   15-MAR-98                                  \par
+Taylor                    SA_REP     24-MAR-98                                  \par
+\par
+HR@orcl> select last_name,department_id\par
+  2  from employees\par
+  3  where department_id in (20,50)\par
+  4  order by last_name;\par
+\par
+LAST_NAME                 DEPARTMENT_ID                                         \par
+------------------------- -------------                                         \par
+Davies                               50                                         \par
+Fay                                  20                                         \par
+Hartstein                            20                                         \par
+Matos                                50                                         \par
+Mourgos                              50                                         \par
+Rajs                                 50                                         \par
+Vargas                               50                                         \par
+\par
+7 rows selected.\par
+\par
+HR@orcl> select last_name"Employee", salary"Monthly Salary"\par
+  2  from employees\par
+  3  where salary between 5000 and 12000\par
+  4  and department_id in (20,50);\par
+\par
+Employee                  Monthly Salary                                        \par
+------------------------- --------------                                        \par
+Fay                                 6000                                        \par
+Mourgos                             5800                                        \par
+\par
+HR@orcl> select last_name,hire_date\par
+  2  from employees\par
+  3  where hire_date like '%94';\par
+\par
+LAST_NAME                 HIRE_DATE                                             \par
+------------------------- ---------                                             \par
+Higgins                   07-JUN-94                                             \par
+Gietz                     07-JUN-94                                             \par
+\par
+HR@orcl> select last_name || 'earns ' || to_char(salary, 'fms99,999.00') || 'monthly but wants'\par
+  2  || to_char(salary * 3,'fm$99,999.00') || '-' "Dream Salaries"\par
+  3  From employees;\par
+\par
+Dream Salaries                                                                  \par
+----------------------------------------------------------------------          \par
+Kingearns +24,000.00monthly but wants$72,000.00-                                \par
+Kochharearns +17,000.00monthly but wants$51,000.00-                             \par
+De Haanearns +17,000.00monthly but wants$51,000.00-                             \par
+Hunoldearns +9,000.00monthly but wants$27,000.00-                               \par
+Ernstearns +6,000.00monthly but wants$18,000.00-                                \par
+Lorentzearns +4,200.00monthly but wants$12,600.00-                              \par
+Mourgosearns +5,800.00monthly but wants$17,400.00-                              \par
+Rajsearns +3,500.00monthly but wants$10,500.00-                                 \par
+Daviesearns +3,100.00monthly but wants$9,300.00-                                \par
+Matosearns +2,600.00monthly but wants$7,800.00-                                 \par
+Vargasearns +2,500.00monthly but wants$7,500.00-                                \par
+\par
+Dream Salaries                                                                  \par
+----------------------------------------------------------------------          \par
+Zlotkeyearns +10,500.00monthly but wants$31,500.00-                             \par
+Abelearns +11,000.00monthly but wants$33,000.00-                                \par
+Taylorearns +8,600.00monthly but wants$25,800.00-                               \par
+Grantearns +7,000.00monthly but wants$21,000.00-                                \par
+Whalenearns +4,400.00monthly but wants$13,200.00-                               \par
+Hartsteinearns +13,000.00monthly but wants$39,000.00-                           \par
+Fayearns +6,000.00monthly but wants$18,000.00-                                  \par
+Higginsearns +12,000.00monthly but wants$36,000.00-                             \par
+Gietzearns +8,300.00monthly but wants$24,900.00-                                \par
+\par
+20 rows selected.\par
+\par
+HR@orcl> select last_name, LPAD(salary, 15, '$') SALARY\par
+  2  FROM employees;\par
+\par
+LAST_NAME                                                                       \par
+-------------------------                                                       \par
+SALARY                                                                          \par
+------------------------------------------------------------                    \par
+King                                                                            \par
+$$$$$$$$$$24000                                                                 \par
+                                                                                \par
+Kochhar                                                                         \par
+$$$$$$$$$$17000                                                                 \par
+                                                                                \par
+De Haan                                                                         \par
+$$$$$$$$$$17000                                                                 \par
+                                                                                \par
+\par
+LAST_NAME                                                                       \par
+-------------------------                                                       \par
+SALARY                                                                          \par
+------------------------------------------------------------                    \par
+Hunold                                                                          \par
+$$$$$$$$$$$9000                                                                 \par
+                                                                                \par
+Ernst                                                                           \par
+$$$$$$$$$$$6000                                                                 \par
+                                                                                \par
+Lorentz                                                                         \par
+$$$$$$$$$$$4200                                                                 \par
+                                                                                \par
+\par
+LAST_NAME                                                                       \par
+-------------------------                                                       \par
+SALARY                                                                          \par
+------------------------------------------------------------                    \par
+Mourgos                                                                         \par
+$$$$$$$$$$$5800                                                                 \par
+                                                                                \par
+Rajs                                                                            \par
+$$$$$$$$$$$3500                                                                 \par
+                                                                                \par
+Davies                                                                          \par
+$$$$$$$$$$$3100                                                                 \par
+                                                                                \par
+\par
+LAST_NAME                                                                       \par
+-------------------------                                                       \par
+SALARY                                                                          \par
+------------------------------------------------------------                    \par
+Matos                                                                           \par
+$$$$$$$$$$$2600                                                                 \par
+                                                                                \par
+Vargas                                                                          \par
+$$$$$$$$$$$2500                                                                 \par
+                                                                                \par
+Zlotkey                                                                         \par
+$$$$$$$$$$10500                                                                 \par
+                                                                                \par
+\par
+LAST_NAME                                                                       \par
+-------------------------                                                       \par
+SALARY                                                                          \par
+------------------------------------------------------------                    \par
+Abel                                                                            \par
+$$$$$$$$$$11000                                                                 \par
+                                                                                \par
+Taylor                                                                          \par
+$$$$$$$$$$$8600                                                                 \par
+                                                                                \par
+Grant                                                                           \par
+$$$$$$$$$$$7000                                                                 \par
+                                                                                \par
+\par
+LAST_NAME                                                                       \par
+-------------------------                                                       \par
+SALARY                                                                          \par
+------------------------------------------------------------                    \par
+Whalen                                                                          \par
+$$$$$$$$$$$4400                                                                 \par
+                                                                                \par
+Hartstein                                                                       \par
+$$$$$$$$$$13000                                                                 \par
+                                                                                \par
+Fay                                                                             \par
+$$$$$$$$$$$6000                                                                 \par
+                                                                                \par
+\par
+LAST_NAME                                                                       \par
+-------------------------                                                       \par
+SALARY                                                                          \par
+------------------------------------------------------------                    \par
+Higgins                                                                         \par
+$$$$$$$$$$12000                                                                 \par
+                                                                                \par
+Gietz                                                                           \par
+$$$$$$$$$$$8300                                                                 \par
+                                                                                \par
+\par
+20 rows selected.\par
+\par
+\par
+\par
+HR@orcl> ed\par
+Wrote file afiedt.buf\par
+\par
+  1  select last_name, hire_date, to_char(next_day(add_months(hire_date, 6),'MONDAY'),\par
+  2  'fmDay, "the" Ddspth "of" Month, YYYY') REVIEW\par
+  3* FROM employees\par
+HR@orcl> /\par
+\par
+LAST_NAME                 HIRE_DATE                                             \par
+------------------------- ---------                                             \par
+REVIEW                                                                          \par
+--------------------------------------------------------------------------------\par
+King                      17-JUN-87                                             \par
+Monday, the Twenty-First of December, 1987                                      \par
+                                                                                \par
+Kochhar                   21-SEP-89                                             \par
+Monday, the Twenty-Sixth of March, 1990                                         \par
+                                                                                \par
+De Haan                   13-JAN-93                                             \par
+Monday, the Nineteenth of July, 1993                                            \par
+                                                                                \par
+\par
+LAST_NAME                 HIRE_DATE                                             \par
+------------------------- ---------                                             \par
+REVIEW                                                                          \par
+--------------------------------------------------------------------------------\par
+Hunold                    03-JAN-90                                             \par
+Monday, the Ninth of July, 1990                                                 \par
+                                                                                \par
+Ernst                     21-MAY-91                                             \par
+Monday, the Twenty-Fifth of November, 1991                                      \par
+                                                                                \par
+Lorentz                   07-FEB-99                                             \par
+Monday, the Ninth of August, 1999                                               \par
+                                                                                \par
+\par
+LAST_NAME                 HIRE_DATE                                             \par
+------------------------- ---------                                             \par
+REVIEW                                                                          \par
+--------------------------------------------------------------------------------\par
+Mourgos                   16-NOV-99                                             \par
+Monday, the Twenty-Second of May, 2000                                          \par
+                                                                                \par
+Rajs                      17-OCT-95                                             \par
+Monday, the Twenty-Second of April, 1996                                        \par
+                                                                                \par
+Davies                    29-JAN-97                                             \par
+Monday, the Fourth of August, 1997                                              \par
+                                                                                \par
+\par
+LAST_NAME                 HIRE_DATE                                             \par
+------------------------- ---------                                             \par
+REVIEW                                                                          \par
+--------------------------------------------------------------------------------\par
+Matos                     15-MAR-98                                             \par
+Monday, the Twenty-First of September, 1998                                     \par
+                                                                                \par
+Vargas                    09-JUL-98                                             \par
+Monday, the Eleventh of January, 1999                                           \par
+                                                                                \par
+Zlotkey                   29-JAN-00                                             \par
+Monday, the Thirty-First of July, 2000                                          \par
+                                                                                \par
+\par
+LAST_NAME                 HIRE_DATE                                             \par
+------------------------- ---------                                             \par
+REVIEW                                                                          \par
+--------------------------------------------------------------------------------\par
+Abel                      11-MAY-96                                             \par
+Monday, the Eighteenth of November, 1996                                        \par
+                                                                                \par
+Taylor                    24-MAR-98                                             \par
+Monday, the Twenty-Eighth of September, 1998                                    \par
+                                                                                \par
+Grant                     24-MAY-99                                             \par
+Monday, the Twenty-Ninth of November, 1999                                      \par
+                                                                                \par
+\par
+LAST_NAME                 HIRE_DATE                                             \par
+------------------------- ---------                                             \par
+REVIEW                                                                          \par
+--------------------------------------------------------------------------------\par
+Whalen                    17-SEP-87                                             \par
+Monday, the Twenty-First of March, 1988                                         \par
+                                                                                \par
+Hartstein                 17-FEB-96                                             \par
+Monday, the Nineteenth of August, 1996                                          \par
+                                                                                \par
+Fay                       17-AUG-97                                             \par
+Monday, the Twenty-Third of February, 1998                                      \par
+                                                                                \par
+\par
+LAST_NAME                 HIRE_DATE                                             \par
+------------------------- ---------                                             \par
+REVIEW                                                                          \par
+--------------------------------------------------------------------------------\par
+Higgins                   07-JUN-94                                             \par
+Monday, the Twelfth of December, 1994                                           \par
+                                                                                \par
+Gietz                     07-JUN-94                                             \par
+Monday, the Twelfth of December, 1994                                           \par
+                                                                                \par
+\par
+20 rows selected.\par
+\par
+\par
+HR@orcl> ed\par
+Wrote file afiedt.buf\par
+\par
+  1  select last_name,hire_date, to_char(hire_date, 'DAY') DAY\par
+  2  FROM employees\par
+  3* order by to_char(hire_date - 1, 'd')\par
+HR@orcl> /\par
+\par
+LAST_NAME                 HIRE_DATE DAY                                         \par
+------------------------- --------- ------------------------------------        \par
+Grant                     24-MAY-99 MONDAY                                      \par
+Gietz                     07-JUN-94 TUESDAY                                     \par
+Taylor                    24-MAR-98 TUESDAY                                     \par
+Higgins                   07-JUN-94 TUESDAY                                     \par
+Rajs                      17-OCT-95 TUESDAY                                     \par
+Mourgos                   16-NOV-99 TUESDAY                                     \par
+Ernst                     21-MAY-91 TUESDAY                                     \par
+Davies                    29-JAN-97 WEDNESDAY                                   \par
+King                      17-JUN-87 WEDNESDAY                                   \par
+De Haan                   13-JAN-93 WEDNESDAY                                   \par
+Hunold                    03-JAN-90 WEDNESDAY                                   \par
+\par
+LAST_NAME                 HIRE_DATE DAY                                         \par
+------------------------- --------- ------------------------------------        \par
+Vargas                    09-JUL-98 THURSDAY                                    \par
+Kochhar                   21-SEP-89 THURSDAY                                    \par
+Whalen                    17-SEP-87 THURSDAY                                    \par
+Hartstein                 17-FEB-96 SATURDAY                                    \par
+Zlotkey                   29-JAN-00 SATURDAY                                    \par
+Abel                      11-MAY-96 SATURDAY                                    \par
+Matos                     15-MAR-98 SUNDAY                                      \par
+Lorentz                   07-FEB-99 SUNDAY                                      \par
+Fay                       17-AUG-97 SUNDAY                                      \par
+\par
+20 rows selected.\par
+\par
+HR@orcl> select last_name,nvl(to_char(commission_pct), 'No Commission')COMM\par
+  2  FROM EMPLOYEES;\par
+\par
+LAST_NAME                 COMM                                                  \par
+------------------------- ----------------------------------------              \par
+King                      No Commission                                         \par
+Kochhar                   No Commission                                         \par
+De Haan                   No Commission                                         \par
+Hunold                    No Commission                                         \par
+Ernst                     No Commission                                         \par
+Lorentz                   No Commission                                         \par
+Mourgos                   No Commission                                         \par
+Rajs                      No Commission                                         \par
+Davies                    No Commission                                         \par
+Matos                     No Commission                                         \par
+Vargas                    No Commission                                         \par
+\par
+LAST_NAME                 COMM                                                  \par
+------------------------- ----------------------------------------              \par
+Zlotkey                   .2                                                    \par
+Abel                      .3                                                    \par
+Taylor                    .2                                                    \par
+Grant                     .15                                                   \par
+Whalen                    No Commission                                         \par
+Hartstein                 No Commission                                         \par
+Fay                       No Commission                                         \par
+Higgins                   No Commission                                         \par
+Gietz                     No Commission                                         \par
+\par
+20 rows selected.\par
+\par
+HR@orcl> select rpad(last_name, 8 )||' ' || rpad(' ' , salary/1000+1, '*')\par
+  2  employees_and_their_salaries\par
+  3  from employees\par
+  4  order by salary desc;\par
+\par
+EMPLOYEES_AND_THEIR_SALARIES                                                    \par
+--------------------------------------------------------------------------------\par
+King      ************************                                              \par
+Kochhar   *****************                                                     \par
+De Haan   *****************                                                     \par
+Hartstei  *************                                                         \par
+Higgins   ************                                                          \par
+Abel      ***********                                                           \par
+Zlotkey   **********                                                            \par
+Hunold    *********                                                             \par
+Taylor    ********                                                              \par
+Gietz     ********                                                              \par
+Grant     *******                                                               \par
+\par
+EMPLOYEES_AND_THEIR_SALARIES                                                    \par
+--------------------------------------------------------------------------------\par
+Ernst     ******                                                                \par
+Fay       ******                                                                \par
+Mourgos   *****                                                                 \par
+Whalen    ****                                                                  \par
+Lorentz   ****                                                                  \par
+Rajs      ***                                                                   \par
+Davies    ***                                                                   \par
+Matos     **                                                                    \par
+Vargas    **                                                                    \par
+\par
+20 rows selected.\par
+\par
+\par
+\par
+HR@orcl> ed\par
+Wrote file afiedt.buf\par
+\par
+  1  select job_id,decode (job_id,' ST_CLERK', 'E',\par
+  2  'SA_REP', 'D',\par
+  3  'IT_PROG', 'C',\par
+  4  'ST_MAN', 'B',\par
+  5  'AD_PRES', 'A',\par
+  6  '0') GRADE\par
+  7* FROM EMPLOYEES\par
+HR@orcl> /\par
+\par
+JOB_ID     G                                                                    \par
+---------- -                                                                    \par
+AC_ACCOUNT 0                                                                    \par
+AC_MGR     0                                                                    \par
+AD_ASST    0                                                                    \par
+AD_PRES    A                                                                    \par
+AD_VP      0                                                                    \par
+AD_VP      0                                                                    \par
+IT_PROG    C                                                                    \par
+IT_PROG    C                                                                    \par
+IT_PROG    C                                                                    \par
+MK_MAN     0                                                                    \par
+MK_REP     0                                                                    \par
+\par
+JOB_ID     G                                                                    \par
+---------- -                                                                    \par
+SA_MAN     0                                                                    \par
+SA_REP     D                                                                    \par
+SA_REP     D                                                                    \par
+SA_REP     D                                                                    \par
+ST_CLERK   0                                                                    \par
+ST_CLERK   0                                                                    \par
+ST_CLERK   0                                                                    \par
+ST_CLERK   0                                                                    \par
+ST_MAN     B                                                                    \par
+\par
+20 rows selected.\par
+\par
+HR@orcl> select job_id, case job_id when 'ST_CLERK' THEN 'E'\par
+  2  WHEN 'SA_REP' THEN 'D'\par
+  3  WHEN 'IT_PROG' THEN 'C'\par
+  4  WHEN 'ST_MAN' THEN 'B'\par
+  5  WHEN 'AD_PRES' THEN 'A'\par
+  6  ELSE '0' END GRADE\par
+  7  FROM employees;\par
+\par
+JOB_ID     G                                                                    \par
+---------- -                                                                    \par
+AC_ACCOUNT 0                                                                    \par
+AC_MGR     0                                                                    \par
+AD_ASST    0                                                                    \par
+AD_PRES    A                                                                    \par
+AD_VP      0                                                                    \par
+AD_VP      0                                                                    \par
+IT_PROG    C                                                                    \par
+IT_PROG    C                                                                    \par
+IT_PROG    C                                                                    \par
+MK_MAN     0                                                                    \par
+MK_REP     0                                                                    \par
+\par
+JOB_ID     G                                                                    \par
+---------- -                                                                    \par
+SA_MAN     0                                                                    \par
+SA_REP     D                                                                    \par
+SA_REP     D                                                                    \par
+SA_REP     D                                                                    \par
+ST_CLERK   E                                                                    \par
+ST_CLERK   E                                                                    \par
+ST_CLERK   E                                                                    \par
+ST_CLERK   E                                                                    \par
+ST_MAN     B                                                                    \par
+\par
+20 rows selected.\par
+\par
+\pard\sa200\sl276\slmult1\lang18\f1\fs20\par
+}
+ 
